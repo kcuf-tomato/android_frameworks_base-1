@@ -304,6 +304,7 @@ import com.android.internal.util.hwkeys.ActionHandler;
 import com.android.internal.util.hwkeys.ActionUtils;
 import com.android.internal.util.ScreenshotHelper;
 import com.android.internal.util.ScreenShapeHelper;
+import com.android.internal.util.stag.DeviceUtils;
 import com.android.internal.widget.PointerLocationView;
 import com.android.server.GestureLauncherService;
 import com.android.server.LocalServices;
@@ -1208,6 +1209,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     UserHandle.USER_ALL);
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.LOCK_POWER_MENU_DISABLED), false, this,
+                    UserHandle.USER_ALL);
+            resolver.registerContentObserver(Settings.Secure.getUriFor(
+                    Settings.System.NAVIGATION_BAR_SHOW), false, this,
                     UserHandle.USER_ALL);
             updateSettings();
         }
@@ -2954,6 +2958,12 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Allow the navigation bar to move on non-square small devices (phones).
         mNavigationBarCanMove = width != height && shortSizeDp < 600;
 
+<<<<<<< HEAD
+=======
+        // reflects original device state from config or build prop, regardless of user settings
+        mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
+
+>>>>>>> e48b0cd... base: Add option to hide the navigation bar [1/2]
         // For demo purposes, allow the rotation of the HDMI display to be controlled.
         // By default, HDMI locks rotation to landscape.
         if ("portrait".equals(SystemProperties.get("persist.demo.hdmirotation"))) {
@@ -3036,6 +3046,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     }
 
     public void updateSettings() {
+        final Resources res = mContext.getResources();
         ContentResolver resolver = mContext.getContentResolver();
         boolean updateRotation = false;
         synchronized (mLock) {
@@ -3092,6 +3103,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 updateWakeGestureListenerLp();
             }
 
+<<<<<<< HEAD
             //Three Finger Gesture
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                     Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
@@ -3131,6 +3143,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mCarbonGesturesDown = handleCarbonGesture(mCarbonGesturesDown,
                 carbonCustomGestureFingers, carbonCustomGestureDown + carbonCustomGestureFingers,
                 CarbonGesturesListener.Directions.DOWN, carbonCustomGestureDownPkg);
+=======
+            // navbar
+            mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
+>>>>>>> e48b0cd... base: Add option to hide the navigation bar [1/2]
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
