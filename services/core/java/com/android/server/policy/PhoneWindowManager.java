@@ -2958,12 +2958,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Allow the navigation bar to move on non-square small devices (phones).
         mNavigationBarCanMove = width != height && shortSizeDp < 600;
 
-<<<<<<< HEAD
-=======
         // reflects original device state from config or build prop, regardless of user settings
         mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
 
->>>>>>> e48b0cd... base: Add option to hide the navigation bar [1/2]
         // For demo purposes, allow the rotation of the HDMI display to be controlled.
         // By default, HDMI locks rotation to landscape.
         if ("portrait".equals(SystemProperties.get("persist.demo.hdmirotation"))) {
@@ -3103,7 +3100,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                 updateWakeGestureListenerLp();
             }
 
-<<<<<<< HEAD
             //Three Finger Gesture
             boolean threeFingerGesture = Settings.System.getIntForUser(resolver,
                     Settings.System.THREE_FINGER_GESTURE, 0, UserHandle.USER_CURRENT) == 1;
@@ -3143,10 +3139,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mCarbonGesturesDown = handleCarbonGesture(mCarbonGesturesDown,
                 carbonCustomGestureFingers, carbonCustomGestureDown + carbonCustomGestureFingers,
                 CarbonGesturesListener.Directions.DOWN, carbonCustomGestureDownPkg);
-=======
+
             // navbar
             mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
->>>>>>> e48b0cd... base: Add option to hide the navigation bar [1/2]
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
