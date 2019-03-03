@@ -17,7 +17,6 @@ import android.widget.TextView;
 import com.android.systemui.AutoReinflateContainer;
 import com.android.systemui.R;
 import com.android.systemui.doze.DozeLog;
-import com.android.systemui.statusbar.phone.DozeParameters;
 import com.android.systemui.statusbar.phone.StatusBar;
 
 import com.android.systemui.ambientmusic.AmbientIndicationInflateListener;
@@ -162,7 +161,7 @@ public class AmbientIndicationContainer extends AutoReinflateContainer {
             mMediaText = notificationText;
             boolean isAnotherTrack = mInfoAvailable
                     && (TextUtils.isEmpty(mLastInfo) || (!TextUtils.isEmpty(mLastInfo) && !mLastInfo.equals(mInfoToSet)));
-            if (!DozeParameters.getInstance(mContext).getAlwaysOn() && mStatusBar != null && isAnotherTrack) {
+            if (mStatusBar != null && isAnotherTrack) {
                 mStatusBar.triggerAmbientForMedia();
             }
             if (mDozing) {
