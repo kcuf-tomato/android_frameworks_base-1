@@ -19,3 +19,5 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)stag/ringtones/Mann.ogg:system/media/audio/ringtones/Mann.ogg \
     $(LOCAL_PATH)stag/ringtones/stag.ogg:system/media/audio/ringtones/stag.ogg \
     $(LOCAL_PATH)stag/ringtones/iphone.ogg:system/media/audio/ringtones/iphone.ogg \
+    $(LOCAL_PATH)stag/ringtones/F&F.ogg:system/media/audio/ringtones/F&F.ogg \
+    $(LOCAL_PATH)stag/ringtones/get away.ogg:system/media/audio/ringtones/get away.ogg \
