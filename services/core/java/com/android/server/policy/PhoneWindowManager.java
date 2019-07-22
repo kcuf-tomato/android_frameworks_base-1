@@ -1803,13 +1803,9 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             boolean locked = km.inKeyguardRestrictedInputMode();
             boolean globalActionsOnLockScreen = Settings.System.getInt(
                     mContext.getContentResolver(), Settings.System.POWERMENU_LOCKSCREEN, 1) == 1;
-            if (locked && !globalActionsOnLockScreen) {
-                behavior = LONG_PRESS_POWER_NOTHING;
-            } else {
                 performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, false);
                 showGlobalActionsInternal();
-            }
-            break;
+             break;
         case LONG_PRESS_POWER_SHUT_OFF:
         case LONG_PRESS_POWER_SHUT_OFF_NO_CONFIRM:
             mPowerKeyHandled = true;
@@ -2887,9 +2883,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         // Allow the navigation bar to move on non-square small devices (phones).
         mNavigationBarCanMove = width != height && shortSizeDp < 600;
 
-        // reflects original device state from config or build prop, regardless of user settings
-        mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
-
         // For demo purposes, allow the rotation of the HDMI display to be controlled.
         // By default, HDMI locks rotation to landscape.
         if ("portrait".equals(SystemProperties.get("persist.demo.hdmirotation"))) {
@@ -3061,9 +3054,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             mCarbonGesturesDown = handleCarbonGesture(mCarbonGesturesDown,
                 carbonCustomGestureFingers, carbonCustomGestureDown + carbonCustomGestureFingers,
                 CarbonGesturesListener.Directions.DOWN, carbonCustomGestureDownPkg);
-
-            // navbar
-            mHasNavigationBar = DeviceUtils.deviceSupportNavigationBar(mContext);
 
             // Configure rotation lock.
             int userRotation = Settings.System.getIntForUser(resolver,
