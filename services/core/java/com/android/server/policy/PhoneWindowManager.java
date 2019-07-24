@@ -961,14 +961,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private static final int MSG_POWER_VERY_LONG_PRESS = 28;
     private static final int MSG_NOTIFY_USER_ACTIVITY = 29;
     private static final int MSG_RINGER_TOGGLE_CHORD = 30;
-<<<<<<< HEAD
     private static final int MSG_DISPATCH_VOLKEY_WITH_WAKE_LOCK = 31;
     private static final int MSG_DISPATCH_VOLKEY_SKIP_TRACK = 32;
     private static final int MSG_TOGGLE_TORCH = 33;
-=======
-    private static final int MSG_TOGGLE_TORCH = 31;
-    private static final int MSG_CLEAR_PROXIMITY = 32;
->>>>>>> 3ee36ca... Power button flashlight toggle: add proximity sensor check
+    private static final int MSG_CLEAR_PROXIMITY = 34;
 
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_STATUS = 0;
     private static final int MSG_REQUEST_TRANSIENT_BARS_ARG_NAVIGATION = 1;
@@ -1107,15 +1103,10 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     break;
                 }
                 case MSG_TOGGLE_TORCH:
-<<<<<<< HEAD
-                    performHapticFeedbackLw(null, HapticFeedbackConstants.LONG_PRESS, true);
-                    StagUtils.toggleCameraFlash();
-=======
                     toggleFlashLightProximityCheck();
                     break;
                 case MSG_CLEAR_PROXIMITY:
                     cleanupProximity();
->>>>>>> 3ee36ca... Power button flashlight toggle: add proximity sensor check
                     break;
             }
         }
