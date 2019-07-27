@@ -7384,7 +7384,6 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // {@link interceptKeyBeforeDispatching()}.
                     result |= ACTION_PASS_TO_USER;
                 } else if ((result & ACTION_PASS_TO_USER) == 0) {
-                    if (!interactive && mVolumeMusicControl) {
                         boolean notHandledMusicControl = false;
                         if (down) {
                             if (keyCode == KeyEvent.KEYCODE_VOLUME_DOWN) {
@@ -7398,20 +7397,22 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                             mHandler.removeMessages(MSG_DISPATCH_VOLKEY_SKIP_TRACK);
                             notHandledMusicControl = true;
                         }
-
-                        if (notHandledMusicControl) {
-                            KeyEvent newEvent = event;
-                            if (!down) {
-                                // Rewrite the event to use key-down if required
-                                // down is enough to make the volume event handled
-                                newEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
-                            }
-                            MediaSessionLegacyHelper.getHelper(mContext).sendVolumeKeyEvent(
-                                    newEvent, AudioManager.USE_DEFAULT_STREAM_TYPE, true);
+                    }
+                    if (down || notHandledMusicControl) {
+                        KeyEvent newEvent = event;
+                        if (!down) {
+                            // Rewrite the event to use key-down if required
+                            newEvent = new KeyEvent(KeyEvent.ACTION_DOWN, keyCode);
                         }
-                    } else {
-                        MediaSessionLegacyHelper.getHelper(mContext).sendVolumeKeyEvent(
-                                event, AudioManager.USE_DEFAULT_STREAM_TYPE, true);
+                        if (mUseTvRouting) {
+                            dispatchDirectAudioEvent(newEvent);
+                        } else {
+                            // If we aren't passing to the user and no one else
+                            // handled it send it to the session manager to
+                            // figure out.
+                            MediaSessionLegacyHelper.getHelper(mContext)
+                                    .sendVolumeKeyEvent(newEvent, AudioManager.USE_DEFAULT_STREAM_TYPE, true);
+                        }
                     }
                 }
                 break;
