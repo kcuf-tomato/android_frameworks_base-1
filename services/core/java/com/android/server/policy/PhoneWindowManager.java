@@ -294,6 +294,7 @@ import com.android.internal.logging.MetricsLogger;
 import com.android.internal.logging.nano.MetricsProto;
 import com.android.internal.os.DeviceKeyHandler;
 import com.android.internal.os.AltDeviceKeyHandler;
+import com.android.internal.os.VolumeKeyHandler;
 import com.android.internal.policy.IKeyguardDismissCallback;
 import com.android.internal.policy.IShortcutService;
 import com.android.internal.policy.KeyguardDismissCallback;
@@ -895,6 +896,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
     private final MutableBoolean mTmpBoolean = new MutableBoolean(false);
 
     private boolean mAodShowing;
+    private VolumeKeyHandler mVolumeKeyHandler;
 
     private PocketManager mPocketManager;
     private PocketLock mPocketLock;
@@ -1599,6 +1601,18 @@ public class PhoneWindowManager implements WindowManagerPolicy {
         }
 
         return handled;
+    }
+
+    private boolean isDozeMode() {
+        IDreamManager dreamManager = getDreamManager();
+        try {
+            if (dreamManager != null && dreamManager.isDreaming()) {
+                return true;
+            }
+        } catch (RemoteException e) {
+            return false;
+        }
+        return false;
     }
 
     private void interceptPowerKeyDown(KeyEvent event, boolean interactive) {
@@ -7347,6 +7361,8 @@ public class PhoneWindowManager implements WindowManagerPolicy {
                     // {@link interceptKeyBeforeDispatching()}.
                     result |= ACTION_PASS_TO_USER;
                 } else if ((result & ACTION_PASS_TO_USER) == 0) {
+                    if (mVolumeKeyHandler.handleVolumeKey(event, interactive))
+                        break;
                     // If we aren't passing to the user and no one else
                     // handled it send it to the session manager to
                     // figure out.
@@ -8873,6 +8889,7 @@ public class PhoneWindowManager implements WindowManagerPolicy {
             }
         }
 
+        mVolumeKeyHandler = new VolumeKeyHandler(mContext);
         mSystemGestures.systemReady();
         mImmersiveModeConfirmation.systemReady();
 

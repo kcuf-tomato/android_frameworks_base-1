@@ -5496,6 +5496,16 @@ public final class Settings {
                 BOOLEAN_VALIDATOR;
 
         /**
+         * Whether or not volume button music controls should be enabled to see$
+         * 0 = 0ff, 1 = on
+         */
+        public static final String VOLBTN_MUSIC_CONTROLS = "volbtn_music_controls";
+
+        /** @hide */
+        public static final Validator VOLBTN_MUSIC_CONTROLS_VALIDATOR =
+                BOOLEAN_VALIDATOR;
+
+        /**
          * Whether to apply a shadow on top of the header image
          * value is the alpha value of the shadow image is 0 -> no shadow -> 255 black
          * @hide
@@ -6174,6 +6184,7 @@ public final class Settings {
             PRIVATE_SETTINGS.add(THEMING_SETTINGS_DASHBOARD_ICONS);
             // Pocket mode handler.
             PRIVATE_SETTINGS.add(POCKET_JUDGE);
+            PRIVATE_SETTINGS.add(VOLBTN_MUSIC_CONTROLS);
         }
 
 
@@ -6321,6 +6332,7 @@ public final class Settings {
             VALIDATORS.put(DOZE_ON_CHARGE, DOZE_ON_CHARGE_VALIDATOR);
             VALIDATORS.put(OMNI_CUSTOM_FP_ICON, OMNI_CUSTOM_FP_ICON_VALIDATOR);
             VALIDATORS.put(THEMING_SETTINGS_DASHBOARD_ICONS, THEMING_SETTINGS_DASHBOARD_ICONS_VALIDATOR);
+            VALIDATORS.put(VOLBTN_MUSIC_CONTROLS, VOLBTN_MUSIC_CONTROLS_VALIDATOR);
         }
 
         /**
