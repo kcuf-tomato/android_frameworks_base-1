@@ -76,7 +76,6 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.database.ContentObserver;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.PorterDuff;
@@ -4543,7 +4542,6 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.Secure.SYSUI_ROUNDED_CONTENT_PADDING, (int) (res.getDimension(resourceIdPadding) / density));
             }
         }
-        updateQSPanel();
     }
 
     // Switches theme accent from to another or back to stock
@@ -4582,7 +4580,7 @@ public class StatusBar extends SystemUI implements DemoMode,
         ThemeAccentUtils.stockSwitchStyle(mOverlayManager, mLockscreenUserManager.getCurrentUserId());
     }
 
-    private void updateQSPanel() {
+/*    private void updateQSPanel() {
         int userQsWallColorSetting = Settings.System.getIntForUser(mContext.getContentResolver(),
                     Settings.System.QS_PANEL_BG_USE_WALL, 0, UserHandle.USER_CURRENT);
         boolean setQsFromWall = userQsWallColorSetting == 1;
@@ -4602,7 +4600,7 @@ public class StatusBar extends SystemUI implements DemoMode,
 
         }
     }
-
+*/
     private void updateDozingState() {
         Trace.traceCounter(Trace.TRACE_TAG_APP, "dozing", mDozing ? 1 : 0);
         Trace.beginSection("StatusBar#updateDozingState");
@@ -5318,6 +5316,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.Secure.getUriFor(
                     Settings.Secure.SYSUI_ROUNDED_FWVALS),
                     false, this, UserHandle.USER_ALL);
+/*
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_PANEL_BG_USE_WALL),
                     false, this, UserHandle.USER_ALL);
@@ -5333,6 +5332,7 @@ public class StatusBar extends SystemUI implements DemoMode,
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.QS_PANEL_BG_COLOR_WALL),
                     false, this, UserHandle.USER_ALL);
+*/
             resolver.registerContentObserver(Settings.System.getUriFor(
                     Settings.System.OMNI_USE_OLD_MOBILETYPE),
                     false, this, UserHandle.USER_ALL);
@@ -5389,6 +5389,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     Settings.System.QS_TILE_STYLE))) {
                 stockTileStyle();
                 updateTileStyle();
+/*
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.QS_PANEL_BG_USE_WALL))) {
                 updateQSPanel();
@@ -5398,6 +5399,7 @@ public class StatusBar extends SystemUI implements DemoMode,
                     uri.equals(Settings.System.getUriFor(Settings.System.QS_PANEL_BG_COLOR_WALL)) ||
                     uri.equals(Settings.System.getUriFor(Settings.System.QS_PANEL_BG_USE_ACCENT))) {
                 mQSPanel.getHost().reloadAllTiles();
+*/
             } else if (uri.equals(Settings.System.getUriFor(
                     Settings.System.SWITCH_STYLE))) {
                 stockSwitchStyle();
@@ -5476,13 +5478,15 @@ public class StatusBar extends SystemUI implements DemoMode,
                 mStatusBarView.setBackgroundColor(0xFF000000);
             if (mKeyguardStatusBar != null)
                 mKeyguardStatusBar.setBackgroundColor(0xFF000000);
-        } else {
+/*       } else {
             if (mStatusBarView != null)
                 mStatusBarView.setBackgroundColor(Color.TRANSPARENT);
             if (mKeyguardStatusBar != null)
                 mKeyguardStatusBar.setBackgroundColor(Color.TRANSPARENT);
         }
+*/
     }
+}
 
     private void handleCutout(Configuration newConfig) {
         boolean immerseMode;
